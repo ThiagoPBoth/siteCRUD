@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Controle de Alimentos</title>
+    <title>Controle de Empresas</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 
     session_start();
 
-    if (isset($_SESSION["coddist"])  && isset($_SESSION["dist"])) {
+    if (isset($_SESSION["codusuario"])  && isset($_SESSION["nome"])) {
     } else {
         header("Location: login.php");
     }
@@ -25,7 +25,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Controle de Alimentos</a>
+            <a class="navbar-brand" href="#">Controle de Empresas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,14 +35,14 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Visualizar Alimentos
+                            Visualizar Empresas
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="mostrarAlimento.php">Visualizar Alimentos</a></li>
+                            <li><a class="dropdown-item" href="visualizarEmpresa.php">Visualizar Empresas</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="cadastrarEmpresa.php">Cadastrar Empresa</a></li>
 
 
                         </ul>
@@ -62,7 +62,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo "$_SESSION[dist]"; ?>
+                        <?php echo "$_SESSION[nome]"; ?>
                     </a>
                     <ul class="dropdown-menu">
                         <form method="POST" action="../control/controleUsuario.php">
@@ -81,13 +81,13 @@
 
     <div class="container">
 
-        <h2 class="m-3 text-center">Alimentos Cadastrados:</h2>
+        <h2 class="m-3 text-center">Suas Empresas Cadastradas:</h2>
 
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Cep</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cnpj</th>
                     <th scope="col">Opções</th>
                     
                     
@@ -98,15 +98,15 @@
 
                 <?php
 
-                    include "../model/crudAlimento.php";
+                    include "../model/crudEmpresa.php";
                     
-                    $result = mostrarAlimento($_SESSION["coddist"]);
+                    $result = visualizarEmpresa($_SESSION["codusuario"]);
 
                     foreach($result as $linha){
                         echo "<tr>";
-                        echo "<td>" . $linha['descricao'] . "</td>";
-                        echo "<td>" . $linha['cep'] . "</td>";
-                        echo "<td>" . "<a class = 'm-1 btn btn-primary' href = 'editarAlimento.php?codigo=$linha[idA]'>Editar</a>" . "</td>";
+                        echo "<td>" . $linha['nomeempresa'] . "</td>";
+                        echo "<td>" . $linha['cnpj'] . "</td>";
+                        echo "<td>" . "<a class = 'm-1 btn btn-primary' href = 'editarEmpresa.php?codigo=$linha[codempresa]'>Editar</a>" . "<a class = 'btn btn-danger' href = '../control/controleEmpresa.php?codigo=$linha[codempresa]'>Excluir</a>" . "</td>";
                         echo "</tr>";
                     }
                    

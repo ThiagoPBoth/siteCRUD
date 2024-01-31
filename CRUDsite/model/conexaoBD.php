@@ -1,4 +1,4 @@
-1<?php
+<?php
 
     $conexao;
 
@@ -9,7 +9,7 @@
         $servidor = "localhost";
         $usuario = "root";
         $senha = "";
-        $base = "palimento";
+        $base = "controleempresa";
         $conexao = mysqli_connect($servidor, $usuario, $senha, $base) or (mysqli_connect_error());
     }
 
